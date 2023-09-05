@@ -1,0 +1,165 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Hamming</title>
+	<script>
+		function code(){
+			let mes = document.getElementById('inpMessege').value;
+            mes = mes.split('');
+			for(let i = 0; i < mes.length; i++){
+                mes[i]*=1;
+                if (mes[i]===0 || mes[i]===1){
+                    continue
+                }
+                else{
+                    alert("Err");
+                    return;
+                }
+            }
+            if (mes.length!=4){
+                alert("error");
+                return;
+            }
+
+			let control = new Array();
+			control.push((mes[0]+mes[1]+mes[3])%2);
+			control.push((mes[1]+mes[2]+mes[3])%2);
+			control.push((mes[0]+mes[2]+mes[3])%2);
+			document.getElementById('codedMessege').value = mes.join('')+
+			control.join('');
+		}
+		function decode(){
+			let mes1 = document.getElementById('codedMessege').value;
+            mes1 = mes1.split('');
+            let sum =0;
+			for(let i = 0; i < mes1.length; i++){
+                mes1[i]*=1;
+				if (mes1[i]===0 || mes1[i]===1){
+                    continue
+                }
+                else{
+                    alert("Err");
+                    return;
+                }
+            }
+            if (mes1.length!=7){
+                alert("error");
+                return;
+            }
+            console.log(mes1);
+			if ((mes1[4]+mes1[1]+mes1[0]+mes1[3])%2 ==1){
+				if ((mes1[1]+mes1[5]+mes1[3]+mes1[2])%2 ==1){
+					if ((mes1[0]+mes1[3]+mes1[2]+mes1[6])%2 ==1){
+						if (mes1[3]==0){
+							mes1[3]=1;
+						} else {
+							mes1[3]=0;
+						}
+						alert('Ошибка в 4-ой цифре');
+					} else {
+						if (mes1[1]==0){
+							mes1[1]=1;
+						} else {
+							mes1[1]=0;
+						}
+						alert('Ошибка во 2-ой цифре');
+					} 
+				} else if ((mes1[0]+mes1[3]+mes1[2]+mes1[6])%2 ==1){
+					if (mes1[0]==0){
+						mes1[0]=1;
+					} else {
+						mes1[0]=0;
+					}
+					alert('Ошибка в 1-ой цифре');
+				} else {
+					if (mes1[4]==0){
+						mes1[4]=1;
+					} else {
+						mes1[4]=0;
+					}
+					alert('Ошибка в 5-ой цифре');
+				}
+			}
+			if ((mes1[1]+mes1[5]+mes1[3]+mes1[2])%2 ==1){
+				if ((mes1[4]+mes1[1]+mes1[0]+mes1[3])%2 ==1){
+					if ((mes1[0]+mes1[3]+mes1[2]+mes1[6])%2 ==1){
+						if (mes1[3]==0){
+							mes1[3]=1;
+						} else {
+							mes1[3]=0;
+						}
+						alert('Ошибка в 4-ой цифре');
+					} else {
+						if (mes1[1]==0){
+							mes1[1]=1;
+						} else {
+							mes1[1]=0;
+						}
+						alert('Ошибка во 2-ой цифре');
+					} 
+				} else if ((mes1[0]+mes1[3]+mes1[2]+mes1[6])%2 ==1){
+					if (mes1[2]==0){
+						mes1[2]=1;
+					} else {
+						mes1[2]=0;
+					}
+					alert('Ошибка в 3-ей цифре');
+				} else {
+					if (mes1[5]==0){
+						mes1[5]=1;
+					} else {
+						mes1[5]=0;
+					}
+					alert('Ошибка в 6-ой цифре');
+				}
+			}
+			if ((mes1[0]+mes1[3]+mes1[2]+mes1[6])%2 ==1){
+				if ((mes1[4]+mes1[1]+mes1[0]+mes1[3])%2 ==1){
+					if ((mes1[1]+mes1[5]+mes1[3]+mes1[2])%2 ==1){
+						if (mes1[3]==0){
+							mes1[3]=1;
+						} else {
+							mes1[3]=0;
+						}
+						alert('Ошибка в 4-ой цифре');
+					} else {
+						if (mes1[0]==0){
+							mes1[0]=1;
+						} else {
+							mes1[0]=0;
+						}
+						alert('Ошибка в 1-ой цифре');
+					} 
+				} else if ((mes1[1]+mes1[5]+mes1[3]+mes1[2])%2 ==1){
+					if (mes1[2]==0){
+						mes1[2]=1;
+					} else {
+						mes1[2]=0;
+					}
+					alert('Ошибка в 3-ей цифре');
+				} else {
+					if (mes1[6]==0){
+						mes1[6]=1;
+					} else {
+						mes1[6]=0;
+					}
+					alert('Ошибка в 7-ой цифре');
+				}
+			}
+			let newMes1 = Array();
+			for (i = 0; i < 4; i++){
+				newMes1[i]=mes1[i]
+			}
+			document.getElementById('decodedMessege').value = newMes1.join('');
+		}
+	</script>
+</head>
+<body>
+	<h1>Hemming code</h1>
+	<p><input type='text' id='inpMessege' > Type the messege </p>
+	<p><input type='button' value='code' onClick='code()' > </p>
+	<p><input type='text' id ='codedMessege'> Coded message </p>
+	<p><input type='button' value='decode' onClick='decode()'> </p>
+	<p><input type='text' id='decodedMessege'> Decoded message </p>
+</body>
+</html>
